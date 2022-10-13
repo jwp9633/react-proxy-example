@@ -1,62 +1,29 @@
 import React, { useState } from 'react';
 import './App.css';
 import Header from './components/Header';
-import BookTable from './components/BookTable';
-import DisplayBoard from './components/DisplayBoard';
-import CreateBook from './components/CreateBook';
-import { getAllBooks, createBook } from './services/BookService';
+import Nav from './components/Nav';
+import Book from './components/Book';
+import Todo from './components/Todo';
 import Footer from './components/Footer';
 
-function App () {
+function App() {
+  const tabs = ['Book', 'Todo'];
 
-  const [bookShelf, setBookShelf] = useState({});
-  const [books, setBooks] = useState([]);
-  const [numberOfBooks, setNumberBooks] = useState(0);
+  const [currentTab, setCurrentTab] = useState(tabs[0]);
 
-  const handleSubmit = () => {
-      createBook(bookShelf)
-        .then(() => {
-          setNumberBooks(numberOfBooks+1);
-      });
-  }
+  const handleCurrentTab = (e) => {
+    setCurrentTab(e.target.innerText);
+  };
 
-  const getAllBook = () => {
-    getAllBooks()
-      .then(data => {
-        setBooks(data);
-        setNumberBooks(data.length);
-      });
-  }
-
-  const handleOnChangeForm = (e) => {
-      let inputData = bookShelf;
-      if (e.target.name === 'book') {
-        bookShelf.book = e.target.value;
-      } else if (e.target.name === 'category') {
-        bookShelf.category = e.target.value;
-      } else if (e.target.name === 'author') {
-        bookShelf.author = e.target.value;
-      }
-      setBookShelf(inputData);
-  }
-
-  
   return (
     <div className="main-wrapper">
-      <div className="main">
-        <Header />
-        <CreateBook 
-          bookShelf={bookShelf}
-          onChangeForm={handleOnChangeForm}
-          handleSubmit={handleSubmit}
-        />
-        <DisplayBoard 
-          numberOfBooks={numberOfBooks} 
-          getAllBook={getAllBook} 
-        />
-        <BookTable books={books} />
-        <Footer />
-      </div>
+      <Header />
+      <Nav tabs={tabs} handleCurrentTab={handleCurrentTab} />
+      <main>
+        {currentTab === 'Book' ? <Book /> : null}
+        {currentTab === 'Todo' ? <Todo /> : null}
+      </main>
+      <Footer />
     </div>
   );
 }

@@ -1,17 +1,17 @@
 import React from 'react';
 
-const CreateBook = ({ onChangeForm, handleSubmit }) => {
+const CreateTodo = ({ onChangeForm, handleSubmit }) => {
   return (
     <div className="form-wrapper">
       <div className="form">
         <form>
           <div className="input-group">
-            <label>book</label>
+            <label>todo</label>
             <input
               type="text"
               onChange={(e) => onChangeForm(e)}
-              name="book"
-              placeholder="book"
+              name="todo"
+              placeholder="todo"
             />
           </div>
           <div className="input-group">
@@ -24,12 +24,12 @@ const CreateBook = ({ onChangeForm, handleSubmit }) => {
             />
           </div>
           <div className="input-group">
-            <label>author</label>
+            <label>isComplete</label>
             <input
-              type="text"
+              type="checkbox"
               onChange={(e) => onChangeForm(e)}
-              name="author"
-              placeholder="author"
+              name="isComplete"
+              placeholder="isComplete"
             />
           </div>
           <button
@@ -47,4 +47,4 @@ const CreateBook = ({ onChangeForm, handleSubmit }) => {
   );
 };
 
-export default CreateBook;
+export default CreateTodo;
